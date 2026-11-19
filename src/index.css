@@ -439,3 +439,23 @@ legend { font-family: var(--mono); font-size: 0.75rem; text-transform: uppercase
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition-duration: 0.01ms !important; }
 }
+
+/* ---------- WebGL hero ---------- */
+.liquid-wrap, .liquid { position: absolute; inset: 0; }
+.liquid { display: block; width: 100%; height: 100%; }
+.hero-title .ch { display: inline-block; font-variation-settings: 'wght' 800; transition: font-variation-settings 0.25s ease-out, transform 0.35s var(--ease); will-change: transform; }
+
+/* ---------- zoom prin „SHIFT” ---------- */
+.zoom { height: 340vh; position: relative; }
+.zoom-stage { position: sticky; top: 0; height: 100vh; overflow: hidden; display: grid; place-items: center; }
+.zoom-text {
+  font-family: var(--display); font-weight: 800; font-size: clamp(5rem, 26vw, 26rem); letter-spacing: -0.06em; line-height: 0.8;
+  color: var(--accent); will-change: transform; white-space: nowrap; user-select: none;
+}
+.zoom-hint { position: absolute; bottom: 40px; left: 50%; translate: -50% 0; color: var(--muted); text-transform: uppercase; letter-spacing: 0.12em; }
+.zoom-fill { position: absolute; inset: 0; background: var(--accent); pointer-events: none; }
+.zoom-msg { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 24px; color: var(--ink); padding: var(--pad); }
+.zoom-msg h2 { font-family: var(--display); font-weight: 800; font-size: clamp(3.4rem, 12vw, 11rem); line-height: 0.88; letter-spacing: -0.06em; }
+.zoom-msg h2 em { font-style: italic; font-weight: 400; }
+.zoom-msg p { max-width: 40ch; font-size: clamp(1rem, 1.5vw, 1.25rem); color: rgba(10, 10, 10, 0.7); }
+.zoom-msg .mono { text-transform: uppercase; letter-spacing: 0.12em; }

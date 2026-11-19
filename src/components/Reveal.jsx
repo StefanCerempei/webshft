@@ -1,4 +1,5 @@
 import { motion } from 'motion/react'
+import Scramble from './Scramble.jsx'
 
 const ease = [0.22, 1, 0.36, 1]
 
@@ -42,5 +43,5 @@ export function FadeUp({ children, delay = 0, className, as = 'div', ...rest }) 
 }
 
 export function Label({ children }) {
-  return <span className="label"><i />{children}</span>
+  return <span className="label"><i /><Scramble text={children} /></span>
 }

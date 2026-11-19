@@ -7,6 +7,7 @@ Site-ul de prezentare al studioului **webshft**, construit cu React + Vite.
 - [React 19](https://react.dev) + [Vite](https://vite.dev)
 - [Motion](https://motion.dev) (Framer Motion): animații, scroll, efecte magnetice
 - [Lenis](https://lenis.darkroom.engineering): smooth scroll
+- WebGL2 pur pentru fundalul lichid din hero (`LiquidBg.jsx`, fără biblioteci 3D)
 - CSS simplu (fără framework), în `src/index.css`
 
 ## Pornire rapidă
@@ -44,9 +45,12 @@ src/
     ├── Preloader.jsx  ← ecran de încărcare
     ├── Cursor.jsx     ← cursor custom (doar desktop)
     ├── Nav.jsx        ← meniu + meniu mobil
-    ├── Hero.jsx
+    ├── Hero.jsx       ← titlu cu litere care reacționează la cursor
+    ├── LiquidBg.jsx   ← shader WebGL (gradient lichid + linii topografice)
+    ├── Scramble.jsx   ← efect de text „decodat”
     ├── Marquee.jsx    ← benzi care reacționează la scroll
     ├── Manifesto.jsx  ← text care se „aprinde” la scroll + statistici
+    ├── ShiftZoom.jsx  ← zoom prin litera „I” din SHIFT
     ├── Services.jsx
     ├── Work.jsx       ← portofoliu cu scroll orizontal
     ├── Process.jsx

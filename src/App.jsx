@@ -6,6 +6,7 @@ import Nav from './components/Nav.jsx'
 import Hero from './components/Hero.jsx'
 import Marquee from './components/Marquee.jsx'
 import Manifesto from './components/Manifesto.jsx'
+import ShiftZoom from './components/ShiftZoom.jsx'
 import Services from './components/Services.jsx'
 import Work from './components/Work.jsx'
 import Process from './components/Process.jsx'
@@ -43,6 +44,7 @@ export default function App() {
         <Hero ready={loaded} />
         <Marquee />
         <Manifesto />
+        <ShiftZoom />
         <Services />
         <Work />
         <Process />

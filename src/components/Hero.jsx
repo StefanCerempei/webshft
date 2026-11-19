@@ -1,5 +1,13 @@
-import { useEffect, useRef } from 'react'
-import { motion, useMotionValue, useScroll, useSpring, useTransform } from 'motion/react'
+import { lazy, Suspense, useEffect, useRef } from 'react'
+import { motion, useInView, useMotionValue, useScroll, useSpring, useTransform } from 'motion/react'
+import useLetterProximity from '../hooks/useLetterProximity.js'
+
+const LiquidBg = lazy(() => import('./LiquidBg.jsx'))
+
+function hasWebGL() {
+  try { const c = document.createElement('canvas'); return !!(c.getContext('webgl2')) } catch { return false }
+}
+const WEBGL = typeof window !== 'undefined' && hasWebGL()
 import Magnetic from './Magnetic.jsx'
 import { scrollTo } from '../utils.js'
 
@@ -14,7 +22,9 @@ function Word({ children, delay, ready, className = '' }) {
         animate={ready ? { y: '0%', rotate: 0 } : {}}
         transition={{ duration: 1.2, ease, delay }}
       >
-        {children}
+        {typeof children === 'string'
+          ? children.split('').map((c, i) => <span className="ch" key={i}>{c === ' ' ? '\u00a0' : c}</span>)
+          : children}
       </motion.span>
     </span>
   )
@@ -22,6 +32,9 @@ function Word({ children, delay, ready, className = '' }) {
 
 export default function Hero({ ready }) {
   const ref = useRef(null)
+  const titleRef = useRef(null)
+  const inView = useInView(ref)
+  useLetterProximity(titleRef, ready)
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] })
   const yTitle = useTransform(scrollYProgress, [0, 1], ['0%', '40%'])
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0])
@@ -47,6 +60,13 @@ export default function Hero({ ready }) {
         <motion.div className="blob b1" style={{ x: bx, y: by }} />
         <motion.div className="blob b2" style={{ x: bx2, y: by2 }} />
         <motion.div className="blob b3" style={{ x: by, y: bx2 }} />
+        {WEBGL && (
+          <Suspense fallback={null}>
+            <motion.div className="liquid-wrap" initial={{ opacity: 0 }} animate={{ opacity: ready ? 1 : 0 }} transition={{ duration: 1.6 }}>
+              <LiquidBg active={inView} />
+            </motion.div>
+          </Suspense>
+        )}
         <div className="hero-grid" />
       </div>
 
@@ -56,7 +76,7 @@ export default function Hero({ ready }) {
           <span className="pill"><i className="pulse" />Disponibil pentru proiecte noi</span>
         </motion.div>
 
-        <h1 className="hero-title" aria-label="Facem shift-ul către un web care vinde.">
+        <h1 ref={titleRef} className="hero-title" aria-label="Facem shift-ul către un web care vinde.">
           <span className="row"><Word ready={ready} delay={0.1}>Facem</Word> <Word ready={ready} delay={0.18} className="outline">shift-ul</Word></span>
           <span className="row"><Word ready={ready} delay={0.26}>către un web</Word></span>
           <span className="row"><Word ready={ready} delay={0.34}>care</Word> <Word ready={ready} delay={0.42} className="accent italic">vinde.</Word></span>

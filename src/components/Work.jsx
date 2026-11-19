@@ -1,5 +1,5 @@
 import { useRef } from 'react'
-import { motion, useScroll, useTransform } from 'motion/react'
+import { motion, useScroll, useSpring, useTransform, useVelocity } from 'motion/react'
 import { PROJECTS } from '../data.js'
 import { Label } from './Reveal.jsx'
 
@@ -36,6 +36,9 @@ export default function Work() {
   const { scrollYProgress } = useScroll({ target: ref })
   const x = useTransform(scrollYProgress, [0, 1], ['0%', '-72%'])
   const progress = useTransform(scrollYProgress, [0, 1], [0, 1])
+  const { scrollY } = useScroll()
+  const vel = useSpring(useVelocity(scrollY), { stiffness: 300, damping: 50 })
+  const skew = useTransform(vel, [-2500, 2500], [7, -7], { clamp: true })
 
   return (
     <section className="work" id="proiecte" ref={ref} style={{ height: `${PROJECTS.length * 80}vh` }}>
@@ -45,7 +48,7 @@ export default function Work() {
           <h2 className="h2">Lucrări <span className="outline">recente</span></h2>
           <div className="work-progress"><motion.i style={{ scaleX: progress }} /></div>
         </div>
-        <motion.div className="work-track" style={{ x }}>
+        <motion.div className="work-track" style={{ x, skewX: skew }}>
           {PROJECTS.map((p, i) => <Card key={p.title} p={p} i={i} />)}
           <a href="#contact" className="work-card work-next" data-cursor="hover">
             <span>Proiectul tău<br />poate fi<br /><em>următorul</em> →</span>
