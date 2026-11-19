@@ -18,7 +18,7 @@ function Mock({ p }) {
 
 function Card({ p, i }) {
   return (
-    <a href="#contact" className="work-card" data-cursor="view">
+    <a href="#contact" className="work-card">
       <div className="work-media" style={{ '--from': p.from, '--to': p.to }}>
         {p.image ? <img src={p.image} alt={p.title} /> : <Mock p={p} />}
       </div>
@@ -50,7 +50,7 @@ export default function Work() {
         </div>
         <motion.div className="work-track" style={{ x, skewX: skew }}>
           {PROJECTS.map((p, i) => <Card key={p.title} p={p} i={i} />)}
-          <a href="#contact" className="work-card work-next" data-cursor="hover">
+          <a href="#contact" className="work-card work-next">
             <span>Proiectul tău<br />poate fi<br /><em>următorul</em> →</span>
           </a>
         </motion.div>

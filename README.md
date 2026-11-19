@@ -43,7 +43,6 @@ src/
 ├── hooks/useMagnetic.js
 └── components/
     ├── Preloader.jsx  ← ecran de încărcare
-    ├── Cursor.jsx     ← cursor custom (doar desktop)
     ├── Nav.jsx        ← meniu + meniu mobil
     ├── Hero.jsx       ← titlu cu litere care reacționează la cursor
     ├── LiquidBg.jsx   ← shader WebGL (gradient lichid + linii topografice)

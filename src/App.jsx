@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import Lenis from 'lenis'
 import Preloader from './components/Preloader.jsx'
-import Cursor from './components/Cursor.jsx'
 import Nav from './components/Nav.jsx'
 import Hero from './components/Hero.jsx'
 import Marquee from './components/Marquee.jsx'
@@ -37,7 +36,6 @@ export default function App() {
   return (
     <>
       <Preloader onDone={() => setLoaded(true)} />
-      <Cursor />
       <div className="grain" aria-hidden="true" />
       <Nav />
       <main>

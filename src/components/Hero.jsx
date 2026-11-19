@@ -99,7 +99,7 @@ export default function Hero({ ready }) {
         </motion.div>
       </motion.div>
 
-      <motion.a href="#manifest" className="scroll-badge" onClick={(e) => scrollTo(e, '#manifest')} data-cursor="hover"
+      <motion.a href="#manifest" className="scroll-badge" onClick={(e) => scrollTo(e, '#manifest')}
         initial={{ opacity: 0, scale: 0.6 }} animate={ready ? { opacity: 1, scale: 1 } : {}} transition={{ delay: 1.1, duration: 0.8, ease }}>
         <svg viewBox="0 0 100 100" className="spin">
           <defs><path id="circ" d="M50,50 m-37,0 a37,37 0 1,1 74,0 a37,37 0 1,1 -74,0" /></defs>

@@ -102,23 +102,6 @@ img { display: block; max-width: 100%; }
 .btn .arrow { transition: transform 0.4s var(--ease); }
 .btn:hover .arrow { transform: rotate(45deg); }
 
-/* ---------- cursor ---------- */
-html.has-cursor, html.has-cursor * { cursor: none !important; }
-.cursor-dot, .cursor-ring { position: fixed; top: 0; left: 0; pointer-events: none; z-index: 1000; }
-.cursor-dot { width: 6px; height: 6px; margin: -3px 0 0 -3px; background: var(--accent); border-radius: 50%; }
-.cursor-ring {
-  width: 40px; height: 40px; margin: -20px 0 0 -20px; border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.4); display: grid; place-items: center;
-  transition: width 0.35s var(--ease), height 0.35s var(--ease), margin 0.35s var(--ease), background 0.35s, border-color 0.35s;
-  mix-blend-mode: difference;
-}
-.cursor-ring.hover { width: 64px; height: 64px; margin: -32px 0 0 -32px; background: #fff; border-color: #fff; }
-.cursor-ring.view {
-  width: 96px; height: 96px; margin: -48px 0 0 -48px; background: var(--accent); border-color: var(--accent);
-  mix-blend-mode: normal;
-}
-.cursor-ring span { font-family: var(--mono); font-size: 0.75rem; text-transform: uppercase; color: var(--ink); font-weight: 500; }
-
 /* ---------- preloader ---------- */
 .preloader {
   position: fixed; inset: 0; z-index: 500; background: var(--accent); color: var(--ink);
