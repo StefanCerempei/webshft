@@ -1,11 +1,5 @@
-import { useEffect, useState } from 'react'
-import Lenis from 'lenis'
-import Preloader from './components/Preloader.jsx'
 import Nav from './components/Nav.jsx'
 import Hero from './components/Hero.jsx'
-import Marquee from './components/Marquee.jsx'
-import Manifesto from './components/Manifesto.jsx'
-import ShiftZoom from './components/ShiftZoom.jsx'
 import Services from './components/Services.jsx'
 import Work from './components/Work.jsx'
 import Process from './components/Process.jsx'
@@ -15,36 +9,13 @@ import Contact from './components/Contact.jsx'
 import Footer from './components/Footer.jsx'
 
 export default function App() {
-  const [loaded, setLoaded] = useState(false)
-
-  // smooth scroll
-  useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
-    const lenis = new Lenis({ lerp: 0.1 })
-    window.__lenis = lenis
-    let id
-    const raf = (t) => { lenis.raf(t); id = requestAnimationFrame(raf) }
-    id = requestAnimationFrame(raf)
-    return () => { cancelAnimationFrame(id); lenis.destroy() }
-  }, [])
-
-  // lock scroll while preloading
-  useEffect(() => {
-    document.documentElement.style.overflow = loaded ? '' : 'hidden'
-  }, [loaded])
-
   return (
     <>
-      <Preloader onDone={() => setLoaded(true)} />
-      <div className="grain" aria-hidden="true" />
       <Nav />
       <main>
-        <Hero ready={loaded} />
-        <Marquee />
-        <Manifesto />
-        <ShiftZoom />
-        <Services />
+        <Hero />
         <Work />
+        <Services />
         <Process />
         <Pricing />
         <Faq />

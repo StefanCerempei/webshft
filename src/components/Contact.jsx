@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { CONTACT } from '../data.js'
-import { Label, SplitLines } from './Reveal.jsx'
-import Magnetic from './Magnetic.jsx'
+import { SecHead } from './Reveal.jsx'
 import { Arrow } from './Hero.jsx'
 
 const TYPES = ['Site de prezentare', 'Magazin online', 'Aplicație web', 'Redesign', 'SEO / Mentenanță']
@@ -26,21 +25,18 @@ export default function Contact() {
   }
 
   return (
-    <section className="contact" id="contact">
+    <section className="section contact" id="contact">
       <div className="wrap">
-        <Label>Contact</Label>
-        <SplitLines lines={['Hai să construim', 'ceva ']} className="contact-title">
-          <em className="accent">memorabil.</em>
-        </SplitLines>
+        <SecHead label="Contact" title="Hai să construim ceva împreună." />
 
         <div className="contact-grid">
           <div className="contact-info">
             <p className="muted">Spune-ne pe scurt ce ai nevoie. Revenim în maximum 24 de ore cu o propunere și o estimare gratuită.</p>
-            <Magnetic href={`mailto:${CONTACT.email}`} className="contact-mail" strength={0.15}>{CONTACT.email}</Magnetic>
+            <a href={`mailto:${CONTACT.email}`} className="contact-mail">{CONTACT.email}</a>
             <a className="contact-link" href={`tel:${CONTACT.phoneHref}`}>{CONTACT.phone}</a>
             <div className="socials">
-              <a href={CONTACT.instagram} target="_blank" rel="noreferrer">Instagram ↗</a>
-              <a href={CONTACT.linkedin} target="_blank" rel="noreferrer">LinkedIn ↗</a>
+              <a href={CONTACT.instagram} target="_blank" rel="noreferrer">Instagram</a>
+              <a href={CONTACT.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
             </div>
           </div>
 
@@ -67,7 +63,7 @@ export default function Contact() {
             </div>
             <label className="field"><textarea id="f-msg" name="msg" rows="4" placeholder=" " /><span>Despre proiect</span></label>
             <div className="form-foot">
-              <Magnetic as="button" type="submit" className="btn btn-accent btn-lg">Trimite mesajul <Arrow /></Magnetic>
+              <button type="submit" className="btn">Trimite mesajul <Arrow /></button>
               <p className="form-status" role="status">{status}</p>
             </div>
           </form>
