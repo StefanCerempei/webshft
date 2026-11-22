@@ -13,6 +13,7 @@ export default function ShiftZoom() {
 
   useLayoutEffect(() => {
     const measure = () => {
+      if (!textRef.current || !iRef.current) return
       const t = textRef.current.getBoundingClientRect()
       const i = iRef.current.getBoundingClientRect()
       const x = ((i.left + i.width / 2 - t.left) / t.width) * 100

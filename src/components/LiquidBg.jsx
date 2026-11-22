@@ -72,11 +72,15 @@ function compile(gl, type, src) {
   const s = gl.createShader(type)
   gl.shaderSource(s, src)
   gl.compileShader(s)
-  if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(s))
+  if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) {
+    const log = gl.getShaderInfoLog(s)
+    gl.deleteShader(s)
+    throw new Error(log || 'Shader-ul nu s-a putut compila')
+  }
   return s
 }
 
-export default function LiquidBg({ active = true }) {
+export default function LiquidBg({ active = true, onFail }) {
   const canvasRef = useRef(null)
   const activeRef = useRef(active)
   useEffect(() => { activeRef.current = active }, [active])
@@ -84,12 +88,23 @@ export default function LiquidBg({ active = true }) {
   useEffect(() => {
     const canvas = canvasRef.current
     const gl = canvas.getContext('webgl2', { antialias: false, alpha: false, powerPreference: 'high-performance' })
-    if (!gl) return
+    if (!gl || gl.isContextLost()) { onFail?.(); return }
 
-    const prog = gl.createProgram()
-    gl.attachShader(prog, compile(gl, gl.VERTEX_SHADER, vertex))
-    gl.attachShader(prog, compile(gl, gl.FRAGMENT_SHADER, fragment))
-    gl.linkProgram(prog)
+    let prog, vs, fs
+    try {
+      vs = compile(gl, gl.VERTEX_SHADER, vertex)
+      fs = compile(gl, gl.FRAGMENT_SHADER, fragment)
+      prog = gl.createProgram()
+      gl.attachShader(prog, vs)
+      gl.attachShader(prog, fs)
+      gl.linkProgram(prog)
+      if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(prog) || 'Link eșuat')
+    } catch (err) {
+      // fără WebGL funcțional rămân petele de culoare din spate
+      console.warn('[LiquidBg] WebGL dezactivat:', err.message)
+      onFail?.()
+      return
+    }
     gl.useProgram(prog)
 
     // un triunghi care acoperă tot ecranul
@@ -129,7 +144,7 @@ export default function LiquidBg({ active = true }) {
       raf = requestAnimationFrame(frame)
       const dt = Math.min((now - last) / 1000, 0.05)
       last = now
-      if (!activeRef.current) return
+      if (!activeRef.current || gl.isContextLost()) return
       t += dt
       mouse.x += (target.x - mouse.x) * 0.04
       mouse.y += (target.y - mouse.y) * 0.04
@@ -144,7 +159,11 @@ export default function LiquidBg({ active = true }) {
       cancelAnimationFrame(raf)
       ro.disconnect()
       window.removeEventListener('pointermove', onMove)
-      gl.getExtension('WEBGL_lose_context')?.loseContext()
+      // Nu distrugem contextul: în StrictMode efectul rulează de două ori pe același canvas
+      gl.deleteBuffer(buf)
+      gl.deleteProgram(prog)
+      gl.deleteShader(vs)
+      gl.deleteShader(fs)
     }
   }, [])
 

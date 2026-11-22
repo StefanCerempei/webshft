@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useRef } from 'react'
+import { Component, lazy, Suspense, useEffect, useRef, useState } from 'react'
 import { motion, useInView, useMotionValue, useScroll, useSpring, useTransform } from 'motion/react'
 import useLetterProximity from '../hooks/useLetterProximity.js'
 
@@ -8,6 +8,14 @@ function hasWebGL() {
   try { const c = document.createElement('canvas'); return !!(c.getContext('webgl2')) } catch { return false }
 }
 const WEBGL = typeof window !== 'undefined' && hasWebGL()
+
+// Orice eroare în fundalul WebGL nu mai poate dărâma pagina
+class SafeBoundary extends Component {
+  state = { failed: false }
+  static getDerivedStateFromError() { return { failed: true } }
+  componentDidCatch(err) { console.warn('[Hero] fundal dezactivat:', err) }
+  render() { return this.state.failed ? null : this.props.children }
+}
 import Magnetic from './Magnetic.jsx'
 import { scrollTo } from '../utils.js'
 
@@ -34,6 +42,7 @@ export default function Hero({ ready }) {
   const ref = useRef(null)
   const titleRef = useRef(null)
   const inView = useInView(ref)
+  const [glFailed, setGlFailed] = useState(false)
   useLetterProximity(titleRef, ready)
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] })
   const yTitle = useTransform(scrollYProgress, [0, 1], ['0%', '40%'])
@@ -60,12 +69,14 @@ export default function Hero({ ready }) {
         <motion.div className="blob b1" style={{ x: bx, y: by }} />
         <motion.div className="blob b2" style={{ x: bx2, y: by2 }} />
         <motion.div className="blob b3" style={{ x: by, y: bx2 }} />
-        {WEBGL && (
+        {WEBGL && !glFailed && (
+          <SafeBoundary>
           <Suspense fallback={null}>
             <motion.div className="liquid-wrap" initial={{ opacity: 0 }} animate={{ opacity: ready ? 1 : 0 }} transition={{ duration: 1.6 }}>
-              <LiquidBg active={inView} />
+              <LiquidBg active={inView} onFail={() => setGlFailed(true)} />
             </motion.div>
           </Suspense>
+          </SafeBoundary>
         )}
         <div className="hero-grid" />
       </div>
