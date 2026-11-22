@@ -19,71 +19,47 @@ export const SERVICES = [
     title: 'Site-uri de prezentare',
     desc: 'Rapide, elegante și ușor de administrat. Explică clar ce faci și transformă vizitatorii în clienți.',
     tags: ['Design custom', 'CMS', 'Multilingv'],
+    color: '#c6ff3d',
   },
   {
     title: 'Magazine online',
     desc: 'E-commerce performant cu plăți online, curierat și facturare. Gata să vândă din prima zi.',
     tags: ['WooCommerce', 'Shopify', 'Headless'],
+    color: '#7b5cff',
   },
   {
     title: 'Aplicații web',
     desc: 'Platforme și dashboard-uri custom care automatizează procese și îți economisesc ore în fiecare săptămână.',
     tags: ['React', 'Next.js', 'Node.js'],
+    color: '#ff5c39',
   },
   {
     title: 'Landing pages',
     desc: 'Pagini de campanie optimizate pentru conversie, ca fiecare leu din reclame să conteze.',
     tags: ['CRO', 'A/B testing', 'Analytics'],
+    color: '#3dd9ff',
   },
   {
     title: 'SEO & performanță',
     desc: 'Audit tehnic, viteză și Core Web Vitals, ca să apari acolo unde te caută clienții.',
     tags: ['Core Web Vitals', 'Schema', 'Audit'],
+    color: '#ffd23d',
   },
   {
     title: 'Mentenanță & hosting',
     desc: 'Actualizări, backup-uri, securitate și suport rapid. Tu te ocupi de business, noi de site.',
     tags: ['Backup zilnic', 'SSL', 'Suport'],
+    color: '#ff3d9a',
   },
 ]
 
 // Proiecte reale. Opțional: pune o captură în `public/proiecte/` și adaugă `image: '/proiecte/nume.jpg'`
 export const PROJECTS = [
-  {
-    title: 'RELOQ — rezervări online',
-    url: 'https://app.reloqmove.com/',
-    type: 'Aplicație web',
-    place: 'Massachusetts, SUA',
-    desc: 'Platformă de rezervare a mutărilor: rută pe hartă, alegerea obiectelor și preț de transport calculat instant.',
-  },
-  {
-    title: 'Boston Movers',
-    url: 'https://callbostonmovers.com/',
-    type: 'Site de prezentare + SEO',
-    place: 'Boston, SUA',
-    desc: 'Site de mutări locale construit ca resursă utilă: ghiduri de permise, sfaturi pe cartiere și cereri de ofertă gratuite.',
-  },
-  {
-    title: 'AME Renovation',
-    url: 'https://ame-renovation.com/en',
-    type: 'Site de prezentare multilingv',
-    place: 'Coasta de Azur, Franța',
-    desc: 'Site pentru renovări interioare la cheie, în 4 limbi (FR / EN / RO / RU), cu simulator de buget.',
-  },
-  {
-    title: 'Dr. Ceban Dmitri — Acupunctură',
-    url: 'https://acupuncturist.md/',
-    type: 'Clinică + programări',
-    place: 'Moldova',
-    desc: 'Site pentru cabinet de acupunctură: servicii, apariții media, recenzii pacienți și programare online.',
-  },
-  {
-    title: 'Top Climat MD',
-    url: 'https://topclimat.md/',
-    type: 'Magazin online',
-    place: 'Moldova',
-    desc: 'Catalog și magazin de aparate de aer condiționat, cu filtrare a produselor, instalare și service.',
-  },
+  { title: 'RELOQ', url: 'https://app.reloqmove.com/', type: 'Aplicație web · rezervări', place: 'SUA', from: '#c6ff3d', to: '#3a8f1f' },
+  { title: 'Boston Movers', url: 'https://callbostonmovers.com/', type: 'Prezentare + SEO', place: 'SUA', from: '#7b5cff', to: '#2a1a8f' },
+  { title: 'AME Renovation', url: 'https://ame-renovation.com/en', type: 'Prezentare multilingv', place: 'Franța', from: '#ff5c39', to: '#a3123a' },
+  { title: 'Acupuncturist', url: 'https://acupuncturist.md/', type: 'Clinică + programări', place: 'Moldova', from: '#3dd9ff', to: '#1a4fa3' },
+  { title: 'Top Climat', url: 'https://topclimat.md/', type: 'Magazin online', place: 'Moldova', from: '#ffd23d', to: '#c26a12' },
 ]
 
 export const PROCESS = [
@@ -122,3 +98,5 @@ export const FAQ = [
   { q: 'Cum se face plata?', a: 'De regulă 50% avans la început și 50% la lansare. Pentru proiectele mari putem împărți plata pe etape.' },
   { q: 'Ce se întâmplă după lansare?', a: 'Rămânem alături de tine: monitorizare, actualizări, backup-uri și îmbunătățiri continue, prin planurile de mentenanță.' },
 ]
+
+export const MARQUEE = ['Site-uri de prezentare', 'Magazine online', 'Aplicații web', 'Landing pages', 'SEO tehnic', 'UI / UX', 'Mentenanță']
